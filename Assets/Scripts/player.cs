@@ -8,7 +8,7 @@ public class player : MonoBehaviour
     public float health;
     public float attack;
     public float defense;
-    public float speed;
+    public float speed = 5;
 
     [Header("Attack Stuff")]
     public float attackSpeed;
