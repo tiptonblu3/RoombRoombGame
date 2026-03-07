@@ -820,10 +820,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2055043944}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 100.599976, y: -26}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -1179.9001, y: 694.5}
+  m_SizeDelta: {x: -2361, y: -1391}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1387722269 stripped
 GameObject:
@@ -1058,7 +1058,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69d2a924ef0341c47b6c01e0cfc361c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::player
-  health: 0
+  health: 5
   attack: 0
   defense: 0
   speed: 5
@@ -1097,6 +1097,11 @@ MonoBehaviour:
   m_DefaultActionMap: 
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!4 &6251333995177159570 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6967615858061453804, guid: eef7c2e8213ce7f4aae53c2fa04d3d1c, type: 3}
+  m_PrefabInstance: {fileID: 6251333995177159565}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8118987021932986335
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1109,13 +1114,25 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: d4319e1e634adb64c880364c7fe70834, type: 2}
+    - target: {fileID: 4661882021188198096, guid: f0ba79fcf28e3b142bfeed23f88960f6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661882021188198096, guid: f0ba79fcf28e3b142bfeed23f88960f6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 4661882021188198096, guid: f0ba79fcf28e3b142bfeed23f88960f6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.01
+      objectReference: {fileID: 0}
     - target: {fileID: 4985354660529486427, guid: f0ba79fcf28e3b142bfeed23f88960f6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3
+      value: 2.82
       objectReference: {fileID: 0}
     - target: {fileID: 4985354660529486427, guid: f0ba79fcf28e3b142bfeed23f88960f6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0.06
       objectReference: {fileID: 0}
     - target: {fileID: 4985354660529486427, guid: f0ba79fcf28e3b142bfeed23f88960f6, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1172,6 +1189,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8712538429233909210, guid: f0ba79fcf28e3b142bfeed23f88960f6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8118987021932986337}
+    - targetCorrespondingSourceObject: {fileID: 8712538429233909210, guid: f0ba79fcf28e3b142bfeed23f88960f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8118987021932986341}
   m_SourcePrefab: {fileID: 100100000, guid: f0ba79fcf28e3b142bfeed23f88960f6, type: 3}
 --- !u!1 &8118987021932986336 stripped
 GameObject:
@@ -1190,11 +1210,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1cd3a3d08ae86d4d88f64f58703554d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::enemy
-  health: 0
-  attack: 0
+  health: 1
+  attack: 1
   defense: 0
-  speed: 0
-  attackSpeed: 0
+  speed: 2
+  EnemyMonster: {fileID: 8118987021932986341}
+  Player: {fileID: 6251333995177159570}
+  attackSpeed: 2
+--- !u!195 &8118987021932986341
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8118987021932986336}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1001 &8915953062920831142
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1257,6 +1301,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 8915953062920831142}
+  - {fileID: 323267501}
   - {fileID: 330585546}
   - {fileID: 410087041}
   - {fileID: 2055043944}
@@ -1264,5 +1309,4 @@ SceneRoots:
   - {fileID: 6251333995177159565}
   - {fileID: 8118987021932986335}
   - {fileID: 235655279}
-  - {fileID: 323267501}
   - {fileID: 1048745293}
