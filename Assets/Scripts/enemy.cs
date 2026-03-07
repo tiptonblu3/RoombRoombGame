@@ -13,6 +13,8 @@ public class enemy : MonoBehaviour
 
     public NavMeshAgent EnemyMonster;
     public Transform Player;
+    public player player;
+    public Collider collider;
 
     [Header("Attack Stuff")]
     public float attackSpeed;
@@ -24,6 +26,10 @@ public class enemy : MonoBehaviour
     3. function for player taking damage, might have to do that in player
     */
 
+    public float returnEnemyAttack ()
+    {
+        return attack;
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -39,6 +45,18 @@ public class enemy : MonoBehaviour
         if (Player != null && EnemyMonster != null)
         {
             EnemyMonster.SetDestination(Player.position);// immediately makes the enemy target the player and march towards them.
+            /*
+            Enemy movement is based on games such as Megabonk and Vampire survivors, in which enemies are constantly targeting the player.
+            */
         } 
+    }
+
+    private void OnTriggerEnter(Collider collider)
+    {   
+        if(collider.transform == Player) // Checks for whether object is player
+        {
+            player = collider.GetComponent<player>(); 
+            player.takeDamage(); // player gets damaged when making contact with the enemy's collider box.
+        }
     }
 }

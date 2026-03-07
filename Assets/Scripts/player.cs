@@ -20,6 +20,11 @@ public class player : MonoBehaviour
     public Vector2 movementInput;
     public Rigidbody rb;
 
+    [Header("GameObjects")]
+    public Transform Enemy;
+    public gameManager Manager;
+
+
     [Header("UI References")]
     public TextMeshProUGUI healthText; // 2. Create the reference
 
@@ -44,6 +49,19 @@ public class player : MonoBehaviour
         rb.linearVelocity = new Vector3(moveDir.x * speed, rb.linearVelocity.y, moveDir.z * speed);
     }
 
+    public void takeDamage()
+    {
+        // Health, enemy attack, and defense are taken into consideration
+        // When hit, damage is subtracted by player defense, then that total is subtracted from the total health of the player
+
+        health -= (attack - defense); 
+        if (health <= 0) // prevents health from going below zero.
+        {
+            health = 0;
+            Manager.gameOver();
+        }
+
+    }
    
     // Update is called once per frame
     void Update()

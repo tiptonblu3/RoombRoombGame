@@ -4,8 +4,10 @@ using System.Collections.Generic;
 
 public class gameManager : MonoBehaviour
 {
-    GameObject Enemy;
-    
+    public GameObject Enemy;
+    public GameObject Player;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -17,6 +19,12 @@ public class gameManager : MonoBehaviour
     {
         
     }
+
+    public void gameOver()
+    {
+        Player.gameObject.SetActive(false);
+    }
+
 
     public void CreateEnemy()
     {
