@@ -31,6 +31,7 @@ public class enemy : MonoBehaviour
         return attack;
     }
 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -44,7 +45,8 @@ public class enemy : MonoBehaviour
     {
         if (Player != null && EnemyMonster != null)
         {
-            EnemyMonster.SetDestination(Player.position);// immediately makes the enemy target the player and march towards them.
+            EnemyMonster.SetDestination(Player.position); // immediately makes the enemy target the player and march towards them.
+            
             /*
             Enemy movement is based on games such as Megabonk and Vampire survivors, in which enemies are constantly targeting the player.
             */
@@ -53,10 +55,11 @@ public class enemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {   
-        if(collider.transform == Player) // Checks for whether object is player
+        if(collider.CompareTag("Player")) // Checks for whether object is player
         {
-            player = collider.GetComponent<player>(); 
-            player.takeDamage(); // player gets damaged when making contact with the enemy's collider box.
+            player p = collider.GetComponent<player>(); // this allows us to set it so that player can take enemy attack in consideration when getting attacked
+            Debug.Log("Enemy hit player!");
+            p.takeDamage(attack); // player gets damaged when making contact with the enemy's collider box.
         }
     }
 }

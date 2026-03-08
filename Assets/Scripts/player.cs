@@ -49,12 +49,16 @@ public class player : MonoBehaviour
         rb.linearVelocity = new Vector3(moveDir.x * speed, rb.linearVelocity.y, moveDir.z * speed);
     }
 
-    public void takeDamage()
+    public void takeDamage(float enemyAttack)
     {
         // Health, enemy attack, and defense are taken into consideration
         // When hit, damage is subtracted by player defense, then that total is subtracted from the total health of the player
+        // Each enemy shares same attack pattern, with the only difference being how much damage they do.
 
-        health -= (attack - defense); 
+        float damage = Mathf.Max(enemyAttack - defense, 0); // defense is taken into account
+
+        health -= damage; // health is subtracted based on enemy attack stats
+
         if (health <= 0) // prevents health from going below zero.
         {
             health = 0;
