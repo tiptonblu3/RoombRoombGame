@@ -53,7 +53,7 @@ public class WeaponType : MonoBehaviour
                 break;
 
             default:
-                Debug.LogWarning("Tier " + tier + " not defined! Using base stats.");
+                Debug.LogWarning("Tier " + bladeTier + " not defined! Using base stats.");
                 damage = 1;
                 cooldown = 1;
                 projectileSpeed = 1;
@@ -64,7 +64,7 @@ public class WeaponType : MonoBehaviour
 
         #region === Vacuum ===
         // Using the 'tier' variable set in the Inspector
-        switch (vaccumTier)
+        switch (vacuumTier)
         {
             case 1: // Tier 1
                 damage = 1;
@@ -95,7 +95,7 @@ public class WeaponType : MonoBehaviour
                 break;
 
             default:
-                Debug.LogWarning("Tier " + tier + " not defined! Using base stats.");
+                Debug.LogWarning("Tier " + vacuumTier + " not defined! Using base stats.");
                 damage = 1;
                 cooldown = 1;
                 projectileSpeed = 1;
