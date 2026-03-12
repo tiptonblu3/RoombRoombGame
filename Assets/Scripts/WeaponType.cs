@@ -1,24 +1,61 @@
 using UnityEngine;
 
-public class WeaponType
+public class WeaponType : MonoBehaviour
 {
-    
-    public int abilityType; // can be equal from 1-4 to represent what weapon does
-    public int weaponType;
-    public int tier;
+    [Header("Basic Stats")]
+    public float damage;
+    public float cooldown;
+    public float projectileSpeed;
+    public float area;
 
-    
-    
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [Header("Settings")]
+    public int tier; // Set this in the Inspector
+
     void Start()
     {
-        
+        InitializeWeapon();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void InitializeWeapon()
     {
-        
+        // Using the 'tier' variable set in the Inspector
+        switch (tier)
+        {
+            case 1: // Tier 1
+                damage = 1;
+                cooldown = 1;
+                projectileSpeed = 1;
+                area = 1;
+                break;
+                
+            case 2: // Tier 2
+                damage = 1;
+                cooldown = 1;
+                projectileSpeed = 1;
+                area = 1;
+                break;
+
+            case 3: // Tier 3
+                damage = 1;
+                cooldown = 1;
+                projectileSpeed = 1;
+                area = 1;
+                break;
+
+            case 4: // Tier 4
+                damage = 1;
+                cooldown = 1;
+                projectileSpeed = 1;
+                area = 1;
+                break;
+
+            default:
+                Debug.LogWarning("Tier " + tier + " not defined! Using base stats.");
+                damage = 1;
+                cooldown = 1;
+                projectileSpeed = 1;
+                area = 1;
+                break;
+        }
     }
 }
