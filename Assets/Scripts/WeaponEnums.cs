@@ -17,4 +17,10 @@ public enum WeaponTier
         Epic,
         Legendary
     }
+
+    public enum WeaponType
+    {
+        Vacum = 0,
+        Blades = 1
+    }
 }

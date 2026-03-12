@@ -11,6 +11,7 @@ public class player : MonoBehaviour
     public float attack;
     public float defense;
     public float speed = 5;
+    public float ultimate = 0;
 
     [Header("Attack Stuff")]
     public float attackSpeed;
