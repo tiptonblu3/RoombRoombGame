@@ -12,6 +12,7 @@ public class player : MonoBehaviour
     public float defense;
     public float speed = 5;
     public float ultimate = 0;
+    public float rotationSpeed = 320f; // Rotation speed in degrees per second
 
     [Header("Attack Stuff")]
     public float attackSpeed;
@@ -20,6 +21,8 @@ public class player : MonoBehaviour
     [Header("Movement Settings")]
     public Vector2 movementInput;
     public Rigidbody rb;
+    private Vector3 moveDirection;
+
 
     [Header("GameObjects")]
     public Transform Enemy;
@@ -44,10 +47,30 @@ public class player : MonoBehaviour
 
     private void ManageMovement()
     {
-        Vector3 moveDir = transform.right * movementInput.x + transform.forward * movementInput.y;
+       if (movementInput.magnitude > 0.1f)
+    {
+        // Calculate the direction in World Space
+        Vector3 moveDir = new Vector3(movementInput.x, 0, movementInput.y).normalized;
 
-        // Apply velocity while preserving existing gravity (y-axis)
+        // Apply Velocity
+        // We keep the Y velocity so gravity still works
         rb.linearVelocity = new Vector3(moveDir.x * speed, rb.linearVelocity.y, moveDir.z * speed);
+
+        // Smooth Rotation
+        // LookRotation defines the target. RotateTowards moves us there at 'rotationSpeed'
+        Quaternion targetRotation = Quaternion.LookRotation(moveDir);
+        
+        rb.MoveRotation(Quaternion.RotateTowards(
+            transform.rotation, 
+            targetRotation, 
+            rotationSpeed * Time.fixedDeltaTime)
+        );
+    }
+    else
+    {
+        // Optional: Stop the player from sliding when input is released
+        rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
+    }
     }
 
     public void takeDamage(float enemyAttack)
@@ -77,3 +100,6 @@ public class player : MonoBehaviour
         }
     }
 }
+
+
+
