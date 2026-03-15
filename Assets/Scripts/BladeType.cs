@@ -3,7 +3,7 @@ using UnityEngine;
 public class BladeType : WeaponType
 {
 
-
+    public float rotationSpeed = 50f;
     
     public void InitializeWeapon() // These need a cap or they will break
     {
@@ -45,7 +45,7 @@ public class BladeType : WeaponType
 
             default:
                 Debug.LogWarning("Tier " + bladeTier + " not defined! Using base stats.");
-                damage = 1;
+                damage = 3;
                 cooldown = 1;
                 projectileSpeed = 1;
                 area = 1;
@@ -64,15 +64,15 @@ public class BladeType : WeaponType
     
     private void OnTriggerEnter(Collider BladeCollider) 
     {   
-        
         if(BladeCollider.CompareTag("Enemy")) // Checks for whether object is player
         {
+
                 enemy e = BladeCollider.GetComponent<enemy>(); // this allows us to set it so that player can take enemy attack in consideration when getting attacked
-                Debug.Log("player hit enemy!");
                 if (e != null)
                 {
                     e.BladeDamage(damage); // player gets damaged when making contact with the enemy's collider box.
                 }
+                
         }
     }
     
@@ -86,6 +86,6 @@ public class BladeType : WeaponType
     // Update is called once per frame
     void Update()
     {
-        
+                transform.Rotate(0, rotationSpeed * Time.deltaTime, 0, Space.Self);
     }
 }
