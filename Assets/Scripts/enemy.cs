@@ -12,6 +12,8 @@ public class enemy : MonoBehaviour
     public float attack;
     public float defense;
     public float speed;
+    public float enemyCooldown = 2f;
+    private float nextAttackTime;
 
     public NavMeshAgent EnemyMonster;
     public Transform Player;
@@ -64,14 +66,18 @@ public class enemy : MonoBehaviour
         } 
     }
 
-    private void OnTriggerEnter(Collider collider)
+    private void OnTriggerStay(Collider collider)
     {   
         
         if(collider.CompareTag("Player")) // Checks for whether object is player
         {
-            player p = collider.GetComponent<player>(); // this allows us to set it so that player can take enemy attack in consideration when getting attacked
-            Debug.Log("Enemy hit player!");
-            p.takeDamage(attack); // player gets damaged when making contact with the enemy's collider box.
+            if( Time.time >= nextAttackTime) // checks for whether enemy can attack again based on cooldown
+            {
+                player p = collider.GetComponent<player>(); // this allows us to set it so that player can take enemy attack in consideration when getting attacked
+                Debug.Log("Enemy hit player!");
+                p.takeDamage(attack); // player gets damaged when making contact with the enemy's collider box.
+                nextAttackTime = Time.time + enemyCooldown; // resets cooldown timer
+            }
         }
     }
 
