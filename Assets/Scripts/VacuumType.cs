@@ -2,7 +2,10 @@ using UnityEngine;
 
 public class VacuumType : WeaponType
 {
-
+    public GameObject vacuumProjectile;
+    public Transform firePoint;
+    public float lastShotTime; // when was vacuum shot last fired. This is used alongside cooldown
+    public bool isProjectile = false;
 
 
     public void InitializeWeapon() // These need a cap or they will break
@@ -46,9 +49,9 @@ public class VacuumType : WeaponType
 
             default:
                 Debug.LogWarning("Tier " + vacuumTier + " not defined! Using base stats.");
-                damage = 1;
+                damage = 10;
                 cooldown = 1;
-                projectileSpeed = 1;
+                projectileSpeed = 15;
                 area = 1;
                 break;
         }
@@ -64,25 +67,79 @@ public class VacuumType : WeaponType
         
         if(vacuumCollider.CompareTag("Enemy")) // Checks for whether object is player
         {
-                enemy e = vacuumCollider.GetComponent<enemy>(); // this allows us to set it so that player can take enemy attack in consideration when getting attacked
-                Debug.Log("Enemy hit player!");
+            enemy e = vacuumCollider.GetComponent<enemy>(); // this allows us to set it so that player can take enemy attack in consideration when getting attacked
+            Debug.Log("Player hit enemy!");
                 
-                if (e != null)
-                {
-                    e.VacuumDamage(damage); // player gets damaged when making contact with the enemy's collider box.
-                }
+            if (e != null)
+            {
+                e.VacuumDamage(damage); // player hits enemy
+                    
+            }
+
+            Destroy(this.gameObject); // vacuum hit enemy, we don't need game object anymore.
+        }
+    }
+
+    void shoot()
+    {
+        Vector3 spawnOffset = transform.forward * 1.5f;
+        
+        GameObject projectile = Instantiate(vacuumProjectile, transform.position + spawnOffset, transform.rotation);
+
+        
+        // behavior for clone instances of bullet
+        VacuumType projClone = projectile.GetComponent<VacuumType>();
+
+        if (projClone != null) // sets most variables same as normal bullet.
+        {
+            projClone.isProjectile = true;
+            projClone.projectileSpeed = projectileSpeed;
+            projClone.damage = damage;
+
+
+        }
+    }
+
+    void move()
+    {
+        transform.Translate(Vector3.forward * projectileSpeed * Time.deltaTime);
+    }
+
+    void shotCooldown()
+    {
+        if(isProjectile) return;
+        
+        if (Time.time >= lastShotTime + cooldown)
+        {
+            shoot();
+            lastShotTime = Time.time;
         }
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        InitializeWeapon();
+        if(!isProjectile)
+        {
+           InitializeWeapon(); 
+        }
+        else
+        {
+            Destroy(this.gameObject, 5f); // destroy projectile after 5 seconds
+        }
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (isProjectile)
+        {
+            move();
+        }
+        else
+        {
+            shotCooldown();
+        }
     }
 }

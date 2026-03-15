@@ -68,7 +68,7 @@ public class BladeType : WeaponType
         if(BladeCollider.CompareTag("Enemy")) // Checks for whether object is player
         {
                 enemy e = BladeCollider.GetComponent<enemy>(); // this allows us to set it so that player can take enemy attack in consideration when getting attacked
-                Debug.Log("Enemy hit player!");
+                Debug.Log("player hit enemy!");
                 if (e != null)
                 {
                     e.BladeDamage(damage); // player gets damaged when making contact with the enemy's collider box.

@@ -105,7 +105,7 @@ public class enemy : MonoBehaviour
             health = 0;
             EnemyMonster.enabled = false;
             Destroy(this.gameObject); //Enemy is dead, we have no use for it, so we destroy the game object.
-
+            
         }
 
     }
