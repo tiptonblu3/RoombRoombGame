@@ -25,5 +25,5 @@ public abstract class Ability : MonoBehaviour
     public abstract void Activate(); // nothing in the base class, inherited objects will have the actual details.
     public abstract void Upgrade(); // similar to Activate
     
-
+   
 }

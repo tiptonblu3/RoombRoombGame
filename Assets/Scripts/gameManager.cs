@@ -12,7 +12,18 @@ public class gameManager : MonoBehaviour
     public float spawnRate = 3f;
     // public int maxEnemyCount = 15;
 
-    
+    public void Blade()
+    {
+        Debug.Log("Blade ability Activated.");
+    }
+    public void Vaccum()
+    {
+        Debug.Log("Vaccum ability Activated.");
+    }
+    public void Dash()
+    {
+        Debug.Log("Dash ability Activated.");
+    }
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

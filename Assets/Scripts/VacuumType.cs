@@ -105,7 +105,7 @@ public class VacuumType : WeaponType
         transform.Translate(Vector3.forward * projectileSpeed * Time.deltaTime);
     }
 
-    void shotCooldown()
+    public void shotCooldown()
     {
         if(isProjectile) return;
         
@@ -139,7 +139,7 @@ public class VacuumType : WeaponType
         }
         else
         {
-            shotCooldown();
+            
         }
     }
 }
