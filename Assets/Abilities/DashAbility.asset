@@ -10,12 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 547a17f4cc14d6d4f848d91aaef394f4, type: 3}
-  m_Name: PlayerDash
+  m_Name: DashAbility
   m_EditorClassIdentifier: Assembly-CSharp::DashAbility
-  abilityName: 
-  level: 1
-  baseXpCost: 100
-  currentCharge: 0
-  skillCooldown: 5
-  chargeCost: 50
+  abilityName: Dash
+  soulCost: 10
+  Stats: {fileID: 1057807710313674802, guid: eef7c2e8213ce7f4aae53c2fa04d3d1c, type: 3}
   dashLength: 7

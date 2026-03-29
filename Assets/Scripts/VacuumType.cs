@@ -7,6 +7,7 @@ public class VacuumType : WeaponType
     public float lastShotTime; // when was vacuum shot last fired. This is used alongside cooldown
     public bool isProjectile = false;
     public float lastVacuumAOETime; // when was vacuumAOE last used. This is used alongside cooldown for that ability
+    
 
 
     public void InitializeWeapon() // These need a cap or they will break

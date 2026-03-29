@@ -11,7 +11,7 @@ public class StoreManager : MonoBehaviour
     public GameObject Shop;
     public GameObject UIButtons; 
     private float storeOpenTime;
-    private bool shopOpened = false;
+    public bool shopOpened = false;
 
 
 

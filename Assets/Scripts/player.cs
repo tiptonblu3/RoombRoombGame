@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,7 +14,9 @@ public class player : MonoBehaviour
     public float speed = 5;
     public float ultimate = 0;
     public float rotationSpeed = 320f; // Rotation speed in degrees per second
-    public float exp = 0;
+    
+    [Header("Abilities")]
+    public List<Ability> abilities; // Drag your assets here in the Inspector
 
     [Header("Attack Stuff")]
     public float attackSpeed;
@@ -26,7 +29,7 @@ public class player : MonoBehaviour
 
     [Header("Shop Stuff")]
     public int souls;
-
+    public float exp = 0;
 
     [Header("GameObjects")]
     public Transform Enemy;
@@ -35,7 +38,8 @@ public class player : MonoBehaviour
 
 
     [Header("UI References")]
-    public TextMeshProUGUI healthText; // 2. Create the reference
+    public TextMeshProUGUI healthText; // health text
+    public TextMeshProUGUI soulText; // Souls text
 
     private void OnMove(InputValue inputValue)
     {
@@ -103,16 +107,67 @@ public class player : MonoBehaviour
         {
             healthText.text = "Health: " + health.ToString("F0");
         }
+
+        if (soulText != null)
+        {
+            soulText.text = "Souls: " + souls.ToString("F0");
+        }
     }
 
-    public void Dash()
+    #region  Abilities 
+    public void UseAbility(int index)
     {
-        Debug.Log("Dash ability Activated.");
-        // boost player forward 3 units in the direction they are currently facing
-        Vector3 dashDirection = transform.forward;
-        transform.position += dashDirection * 3;
+        // 1. Safety check: Does the slot exist?
+        if (index < 0 || index >= abilities.Count)
+        {
+            Debug.LogWarning($"Ability slot {index} is empty!");
+            return;
+        }
 
+        Ability selectedAbility = abilities[index];
+
+        if (selectedAbility != null)
+        {
+            // 2. The Handshake: Tell the scriptable object who the player is
+            selectedAbility.Stats = this;
+
+            // 3. Activate the ability logic
+            selectedAbility.Activate(gameObject);
+        }
     }
+        #region Input Callbacks for Abilities
+        public void OnAbilityOne(InputValue value)
+        {
+            if (value.isPressed) UseAbility(0); //do nothing for now for controller/keyboard use
+        }
+
+        public void OnAbilityTwo(InputValue value)
+        {
+            if (value.isPressed) UseAbility(1); //do nothing for now for controller/keyboard use
+        }
+
+        public void OnAbilityThree(InputValue value)
+        {
+            if (value.isPressed) UseAbility(2); //do nothing for now for controller/keyboard use
+        }
+        #endregion
+    public void UpgradeAbility(int index)
+    {
+        // Check if the slot exists and isn't empty
+        if (index >= 0 && index < abilities.Count && abilities[index] != null)
+        {
+            abilities[index].Upgrade();
+        }
+        else
+        {
+            Debug.LogWarning("Upgrade failed: Slot " + index + " is empty.");
+        }
+    }
+
+    #endregion
+
+
+
 }
 
 

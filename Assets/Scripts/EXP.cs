@@ -4,8 +4,8 @@ public class EXP : MonoBehaviour
 {
     public float speed = 5f;
     public float expAmount = 10f;
-    public int soulsAmount = 10;
-    public float ultimateAmount = 10f;
+    public int soulsAmount = 1;
+    //public float ultimateAmount = 10f;
     public AudioClip expSound;
     
     private GameObject player;
@@ -55,7 +55,7 @@ public class EXP : MonoBehaviour
             {
                 playerScript.exp += expAmount;
                 playerScript.souls += soulsAmount;
-                playerScript.ultimate += ultimateAmount;
+                //playerScript.ultimate += ultimateAmount;
             }
             
             // Destroy self on collision with player tag

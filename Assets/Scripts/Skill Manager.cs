@@ -35,6 +35,6 @@ public class SkillManager : MonoBehaviour
     {
         if (!value.isPressed) return;
 
-        abilities[0].Activate();
+        abilities[0].Activate(gameObject);
     }
 }

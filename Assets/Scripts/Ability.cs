@@ -1,28 +1,17 @@
 using UnityEngine;
 
-public abstract class Ability : MonoBehaviour
+public abstract class Ability : ScriptableObject
 {
-    // ability ideas
-    /*
-        1. Dash
-        2. Super Shield / AOE attack
-        3. Long strike
-    */
+    public string abilityName;
+    public int soulCost;
+    public player Stats;
 
-    public float skillCooldown = 5f; // the cooldown of the skill
-    public float lastUsed; // when the skill was last used.
-
-    public bool canUse () // bool to check whether the skill can be used.
+    public virtual bool canUse() // bool to check whether the skill can be used.
     {
-        return Time.time >= skillCooldown - lastUsed;
-    }
-
-    public void startCooldown () // marks when skill enters cooldown
-    {
-        lastUsed = Time.time;
+        return Stats.souls >= soulCost;
     }
     
-    public abstract void Activate(); // nothing in the base class, inherited objects will have the actual details.
+    public abstract void Activate(GameObject parent); // nothing in the base class, inherited objects will have the actual details.
     public abstract void Upgrade(); // similar to Activate
     
    
