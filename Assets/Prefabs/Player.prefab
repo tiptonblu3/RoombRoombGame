@@ -171,8 +171,8 @@ GameObject:
   - component: {fileID: 1057807710313674802}
   - component: {fileID: 3576335299763836007}
   - component: {fileID: 4249445729590629605}
-  - component: {fileID: 3591745134126806541}
   - component: {fileID: 358749943574274478}
+  - component: {fileID: 3776388298590483045}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -216,6 +216,7 @@ MonoBehaviour:
   speed: 5
   ultimate: 0
   rotationSpeed: 720
+  exp: 0
   attackSpeed: 0
   IFrames: 0
   movementInput: {x: 0, y: 0}
@@ -281,8 +282,22 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!135 &3591745134126806541
-SphereCollider:
+--- !u!114 &358749943574274478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9091490647570298220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdcefa89d42b4044287d6c3eed0262b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SkillManager
+  abilities:
+  - {fileID: 5222158960204775045}
+--- !u!65 &3776388298590483045
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -300,22 +315,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.7862518
+  m_Size: {x: 1, y: 0.25, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &358749943574274478
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9091490647570298220}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdcefa89d42b4044287d6c3eed0262b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SkillManager
-  abilities:
-  - {fileID: 5222158960204775045}
 --- !u!1001 &1571551624027861904
 PrefabInstance:
   m_ObjectHideFlags: 0

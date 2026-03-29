@@ -6,21 +6,37 @@ public class StoreManager : MonoBehaviour
     public int bladeCost;
     public int vacuumCost;
     public GameObject player;
+    public GameObject blade;
+    public GameObject vacuum;
+    public GameObject Shop;
+    private float storeOpenTime;
+    private bool shopOpened = false;
+
+
+
     private void InitializeWeapon()
     {
-        player.GetComponent<BladeType>().InitializeWeapon();
-        player.GetComponent<VacuumType>().InitializeWeapon();
+        blade.GetComponent<BladeType>().InitializeWeapon();
+        vacuum.GetComponent<VacuumType>().InitializeWeapon();
     }
 
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player"); // Finds Player
+        blade = GameObject.FindGameObjectWithTag("Blade"); // Finds Blade
+        vacuum = GameObject.FindGameObjectWithTag("Vacuum"); // Finds Vacuum
     }
 
     void Update()
     {
-
+        if (!shopOpened && storeOpenTime > 0 && Time.time >= storeOpenTime + 1.5f)
+        {
+            Shop.SetActive(true);
+            Time.timeScale = 0f; // Pause game
+            Debug.Log("Store Opened");
+            shopOpened = true;
+        }
     }
 
     public void BuyWeapon()
@@ -31,22 +47,35 @@ public class StoreManager : MonoBehaviour
     void OnTriggerEnter(Collider collision)
     {
         souls = player.GetComponent<player>().souls; // Updates Player Souls
-        bladeCost = player.GetComponent<WeaponType>().bladeCost; // Updates Cost
-        vacuumCost = player.GetComponent<WeaponType>().vacuumCost; // Updates Cost
-        // after a few seconds open store
-
+        bladeCost = blade.GetComponent<WeaponType>().bladeCost; // Updates Cost
+        vacuumCost = vacuum.GetComponent<WeaponType>().vacuumCost; // Updates Cost
+        InitializeWeapon(); // Updates weapons
+        // Start timer to open store after seconds
+        storeOpenTime = Time.time;
+        shopOpened = false;
     }
     void OnTriggerExit(Collider collision)
     {
         InitializeWeapon(); // On leaving the store weapons are updated
+        Shop.SetActive(false);
+        shopOpened = false;
+        storeOpenTime = 0; // Reset timer so shop can't reopen
+        Debug.Log("Store Closed");
     }
-
+    public void CloseShop()
+    {
+        Shop.SetActive(false);
+        shopOpened = false;
+        storeOpenTime = 0;
+        Debug.Log("Store Closed");
+        Time.timeScale = 1f; // Resume game
+    }
     public void BuyVacuumUpgrade() // 
     {
         if (souls >= vacuumCost)
         {
             souls -= vacuumCost;
-            player.GetComponent<VacuumType>().vacuumTier++;
+            vacuum.GetComponent<VacuumType>().vacuumTier++;
         }
     }
 
@@ -55,7 +84,7 @@ public class StoreManager : MonoBehaviour
         if (souls >= bladeCost)
         {
             souls -= bladeCost;
-            player.GetComponent<BladeType>().bladeTier++;
+            blade.GetComponent<BladeType>().bladeTier++;
         }
     }
 
