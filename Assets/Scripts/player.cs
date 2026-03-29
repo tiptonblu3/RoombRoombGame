@@ -104,6 +104,15 @@ public class player : MonoBehaviour
             healthText.text = "Health: " + health.ToString("F0");
         }
     }
+
+    public void Dash()
+    {
+        Debug.Log("Dash ability Activated.");
+        // boost player forward 3 units in the direction they are currently facing
+        Vector3 dashDirection = transform.forward;
+        transform.position += dashDirection * 3;
+
+    }
 }
 
 

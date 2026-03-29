@@ -6,6 +6,7 @@ public class VacuumType : WeaponType
     public Transform firePoint;
     public float lastShotTime; // when was vacuum shot last fired. This is used alongside cooldown
     public bool isProjectile = false;
+    public float lastVacuumAOETime; // when was vacuumAOE last used. This is used alongside cooldown for that ability
 
 
     public void InitializeWeapon() // These need a cap or they will break
@@ -140,6 +141,52 @@ public class VacuumType : WeaponType
         else
         {
             
+        }
+    }
+
+        public void VacuumAOE()
+    {
+        // References the enemy script to call the VacuumAOEState method for 5 seconds and then the ExitVacuumAOEState method
+        // then will activate a 20 second cooldown for the vacuumAOE ability
+        
+        // Check if ability is on cooldown
+        if (Time.time < lastVacuumAOETime + 20f)
+        {
+            Debug.Log("VacuumAOE is on cooldown!");
+            return;
+        }
+        
+        GameObject[] enemiesObjects = FindObjectsOfType<GameObject>();
+        foreach (GameObject obj in enemiesObjects)
+        {
+            if (obj.CompareTag("Enemy"))
+            {
+                enemy e = obj.GetComponent<enemy>();
+                if (e != null)
+                {
+                    e.VacuumAOEState();
+                }
+            }
+        }
+        
+        Invoke("ExitVacuumAOE", 5f); // Exit VacuumAOE state after 5 seconds
+        lastVacuumAOETime = Time.time; // Start cooldown
+        Debug.Log("VacuumAOE activated! Cooldown will end in 20 seconds.");
+    }
+
+    void ExitVacuumAOE()
+    {
+        GameObject[] enemiesObjects = FindObjectsOfType<GameObject>();
+        foreach (GameObject obj in enemiesObjects)
+        {
+            if (obj.CompareTag("Enemy"))
+            {
+                enemy e = obj.GetComponent<enemy>();
+                if (e != null)
+                {
+                    e.ExitVacuumAOEState();
+                }
+            }
         }
     }
 }

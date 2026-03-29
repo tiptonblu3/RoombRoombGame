@@ -31,6 +31,9 @@ public class enemy : MonoBehaviour
     public int expMax = 5;
     public GameObject expPrefab;
 
+    private bool inVacuumAOEState = false;
+    private float originalSpeed;
+
     // Notes:
     /*
     1. Make parent enemy object (probably call it enemy spawner), and have all enemies spawn under it.
@@ -49,6 +52,8 @@ public class enemy : MonoBehaviour
     {
         Debug.Log(EnemyMonster.isOnNavMesh);
         EnemyMonster.stoppingDistance = 0f;
+        originalSpeed = EnemyMonster.speed; // Store original speed for later restoration
+        Debug.Log("Enemy original speed: " + originalSpeed); // Debug log to verify original speed is stored correctly
         
         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
 
@@ -76,7 +81,13 @@ public class enemy : MonoBehaviour
         
         if(collider.CompareTag("Player")) // Checks for whether object is player
         {
-            if( Time.time >= nextAttackTime) // checks for whether enemy can attack again based on cooldown
+            if (inVacuumAOEState)
+            {
+                // In VacuumAOE state, enemy dies on contact with player
+                SpawnEXP();
+                Destroy(this.gameObject);
+            }
+            else if (Time.time >= nextAttackTime) // checks for whether enemy can attack again based on cooldown
             {
                 player p = collider.GetComponent<player>(); // this allows us to set it so that player can take enemy attack in consideration when getting attacked
                 Debug.Log("Enemy hit player!");
@@ -125,17 +136,45 @@ public class enemy : MonoBehaviour
 
     private void SpawnEXP()
     {
-        if (expPrefab == null)
+        if (expPrefab == null) // Check if EXP Prefab is REAL!!!
         {
             Debug.LogWarning("EXP prefab not assigned!");
             return;
         }
 
-        int expCount = Random.Range(expMin, expMax + 1);
+        int expCount = Random.Range(expMin, expMax + 1); // Spawns a random value between min max
         for (int i = 0; i < expCount; i++)
         {
-            Vector3 spawnPos = transform.position + Random.insideUnitSphere * 1f;
+            Vector3 spawnPos = transform.position + Random.insideUnitSphere * 1f; // Spawns EXP in an area around the dead enemy
+            spawnPos.y = transform.position.y; // Keep EXP on the same height as the enemy
             Instantiate(expPrefab, spawnPos, Quaternion.identity);
         }
+    }
+        
+    public void VacuumAOEState()
+    {
+        // When the player uses this attack the enemy will be dragged towards the player and die upon contact with the player.
+        // This attack will have a cooldown, and the player will be invulnerable during the attack.
+        // Set enemy NavMeshAgent speed to 5, and make it so that the enemy is dragged towards the player. If the enemy makes contact with the player, the enemy dies.
+        inVacuumAOEState = true;
+        EnemyMonster.speed = 5f; // Increase speed to drag enemy towards player quickly
+        Debug.Log("Enemy entered VacuumAOE state, speed set to 5f. Original speed was: " + originalSpeed);
+    }
+
+    public void ExitVacuumAOEState()
+    {
+        // Exit the vacuum AOE state and restore original speed
+        inVacuumAOEState = false;
+        EnemyMonster.speed = originalSpeed;
+        
+        // Push enemy back 5 units away from player
+        if (Player != null)
+        {
+            Vector3 pushDirection = (transform.position - Player.position).normalized;
+            transform.position += pushDirection * 5f;
+            Debug.Log("Enemy pushed back 5 units.");
+        }
+        
+        Debug.Log("Enemy exited VacuumAOE state, speed restored to: " + originalSpeed);
     }
 }

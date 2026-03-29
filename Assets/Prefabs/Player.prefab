@@ -127,6 +127,7 @@ MonoBehaviour:
   firePoint: {fileID: 8121441859228246595, guid: e68cf3ba2ecf682499b853d04af5fb0a, type: 3}
   lastShotTime: 0
   isProjectile: 0
+  lastVacuumAOETime: 0
 --- !u!1 &7044941304146335629
 GameObject:
   m_ObjectHideFlags: 0

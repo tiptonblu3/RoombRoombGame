@@ -639,17 +639,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &296602518 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3742498971895707453, guid: 50b06a68efc450d47a9b8e8c3c59d92f, type: 3}
-  m_PrefabInstance: {fileID: 8915953062920831142}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 743d4209ff26361408bb0be4c1e75581, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::gameManager
 --- !u!1 &322745066
 GameObject:
   m_ObjectHideFlags: 0
@@ -1161,7 +1150,7 @@ GameObject:
   - component: {fileID: 469140953}
   - component: {fileID: 469140952}
   m_Layer: 5
-  m_Name: Vacume AOE
+  m_Name: Vacuum AOE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1231,9 +1220,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 296602518}
-        m_TargetAssemblyTypeName: gameManager, Assembly-CSharp
-        m_MethodName: Vaccum
+      - m_Target: {fileID: 849036378}
+        m_TargetAssemblyTypeName: VacuumType, Assembly-CSharp
+        m_MethodName: VacuumAOE
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1746,8 +1735,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 296602518}
-        m_TargetAssemblyTypeName: gameManager, Assembly-CSharp
+      - m_Target: {fileID: 6251333995177159575}
+        m_TargetAssemblyTypeName: player, Assembly-CSharp
         m_MethodName: Dash
         m_Mode: 1
         m_Arguments:
@@ -2510,6 +2499,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6967615858061453804, guid: eef7c2e8213ce7f4aae53c2fa04d3d1c, type: 3}
   m_PrefabInstance: {fileID: 6251333995177159565}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6251333995177159575 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1057807710313674802, guid: eef7c2e8213ce7f4aae53c2fa04d3d1c, type: 3}
+  m_PrefabInstance: {fileID: 6251333995177159565}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69d2a924ef0341c47b6c01e0cfc361c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::player
 --- !u!1001 &8915953062920831142
 PrefabInstance:
   m_ObjectHideFlags: 0
