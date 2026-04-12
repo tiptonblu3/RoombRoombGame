@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 404237661693911783}
   - component: {fileID: 3742498971895707453}
+  - component: {fileID: 8072895009485320019}
+  - component: {fileID: 88544435838325692}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -44,3 +46,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 743d4209ff26361408bb0be4c1e75581, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::gameManager
+  Enemy: {fileID: 8712538429233909210, guid: f0ba79fcf28e3b142bfeed23f88960f6, type: 3}
+  Player: {fileID: 0}
+  spawnDistance: 20
+  spawnRate: 3
+--- !u!114 &8072895009485320019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3611577176566165328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60e32b7612c27534e82dc99d4f7119f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AbilityLoader
+--- !u!114 &88544435838325692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3611577176566165328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3a0fa104bef55646be29324e024579d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneReloader

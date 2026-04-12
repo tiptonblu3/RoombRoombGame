@@ -35,7 +35,7 @@ public class player : MonoBehaviour
     public Transform Enemy;
     public gameManager Manager;
     // public enemy EnemyRival;
-
+    public SceneReloader screl;
 
     [Header("UI References")]
     public TextMeshProUGUI healthText; // health text
@@ -95,7 +95,9 @@ public class player : MonoBehaviour
         if (health <= 0) // prevents health from going below zero.
         {
             health = 0;
-            Manager.gameOver();
+            screl.GameOverScreen.SetActive(true);
+            screl.StoreMan.UIButtons.SetActive(true);
+            Time.timeScale = 0f; // pause game
         }
 
     }
