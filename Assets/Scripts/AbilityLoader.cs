@@ -4,12 +4,20 @@ using UnityEngine;
 
 public class AbilityLoader : MonoBehaviour
 {
-    
     void Start()
-    {
-        string path = Application.dataPath + "/abilities.json";
-        string json = File.ReadAllText(path);
+{
+    string path = System.IO.Path.Combine(Application.dataPath, "Abilities", "abilities.json");
+    Debug.Log("Attempting to load: [" + path + "]");
 
-        Debug.Log(json);
-    }
+    if (File.Exists(path))
+        {
+            string json = File.ReadAllText(path);
+            Debug.Log("Success:" + json);
+        }
+    else
+        {
+            Debug.LogError("File not found at " + path);   
+        }    
+}
+    
 }
