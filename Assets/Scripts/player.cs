@@ -105,14 +105,17 @@ public class player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (healthText != null)
+       try
         {
-            healthText.text = "Health: " + health.ToString("F0");
-        }
+            if (healthText != null)
+                healthText.text = "Health: " + health.ToString("F0");
 
-        if (soulText != null)
+            if (soulText != null)
+                soulText.text = "Souls: " + souls.ToString("F0");
+        }
+        catch (System.Exception e)
         {
-            soulText.text = "Souls: " + souls.ToString("F0");
+            Debug.LogError("UI update failed: " + e.Message);
         }
     }
 
