@@ -8,6 +8,8 @@ public class VaccumAbility : Ability
     
     public int VaccumAOEDurration = 5;
     public float cooldownTime = 20f;
+    public int soulUpgradeCost = 100;
+
 
     [System.NonSerialized] 
     private float lastUsedTime = -100f;
@@ -60,7 +62,24 @@ public class VaccumAbility : Ability
 
     public override void Upgrade()
     {
-        VaccumAOEDurration += 1; // increase durration of VacuumAOE by 1 second
+        // Find the player object and get the player component
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        player playerSouls = player.GetComponent<player>();
+
+        if (playerSouls.souls < soulUpgradeCost) 
+        {
+            Debug.LogWarning("Not enough souls to upgrade VacuumAOE!");
+            Debug.Log("Current Souls: " + playerSouls.souls + ", Required: " + soulUpgradeCost);
+            return;
+        }
+        else 
+        {
+            playerSouls.souls -= soulUpgradeCost; // Deduct souls for the upgrade
+            VaccumAOEDurration += 1; // Increase duration
+            Debug.Log("VacuumAOE upgraded! New duration: " + VaccumAOEDurration);
+            soulUpgradeCost += 100; // Increase Soul cost for next upgrade
+        }
+
     }
     
 }

@@ -9,6 +9,8 @@ public class BladeShot : Ability
     public float damage = 10f;
     public float cooldownTime = 1f;
     public float projectileSize = 1f; 
+    public int soulUpgradeCost = 100;
+
 
     [System.NonSerialized] 
     private float lastUsedTime = -100f;
@@ -58,8 +60,24 @@ public class BladeShot : Ability
 
     public override void Upgrade()
     {
-        projectileSpeed += 2f;
-        damage += 5f;
-        projectileSize += 0.2f; // Optional: Increase size on upgrade
+        // Find the player object and get the player component
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        player playerSouls = player.GetComponent<player>();
+
+        if (playerSouls.souls < soulUpgradeCost) 
+        {
+            Debug.LogWarning("Not enough souls to upgrade Blade!");
+            Debug.Log("Current Souls: " + playerSouls.souls + ", Required: " + soulUpgradeCost);
+            return;
+        }
+        else 
+        {
+            playerSouls.souls -= soulUpgradeCost; // Deduct souls for the upgrade
+            projectileSpeed += 2f;
+            damage += 5f;
+            projectileSize += 0.2f; // Optional: Increase size on upgrade
+            Debug.Log("Blade upgraded! New Stats - Speed: " + projectileSpeed + ", Damage: " + damage + ", Size: " + projectileSize);
+            soulUpgradeCost += 100; // Increase Soul cost for next upgrade
+        }
     }
 }

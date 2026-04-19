@@ -5,6 +5,7 @@ public class DashAbility : Ability
 {
     
     public float dashLength = 7f;
+    public int soulUpgradeCost = 100;
     
     public override void Activate (GameObject parent)
     {
@@ -16,7 +17,24 @@ public class DashAbility : Ability
 
     public override void Upgrade()
     {
-        dashLength += 1f;
+        // Find the player object and get the player component
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        player playerSouls = player.GetComponent<player>();
+
+        if (playerSouls.souls < soulUpgradeCost) 
+        {
+            Debug.LogWarning("Not enough souls to upgrade Dash!");
+            Debug.Log("Current Souls: " + playerSouls.souls + ", Required: " + soulUpgradeCost);
+            return;
+        }
+        else 
+        {
+            playerSouls.souls -= soulUpgradeCost; // Deduct souls for the upgrade
+            dashLength += 1f; // Increase dash
+            Debug.Log("Dash upgraded! New dash length: " + dashLength);
+            soulUpgradeCost += 100; // Increase Soul cost for next upgrade
+        }
+  
     }
     
 }
